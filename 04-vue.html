@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.5/vue.min.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.5/vue.min.js"></script> -->
+    <script src='KVue.js'></script>
 </head>
 <body>
     <div id="app">
@@ -12,12 +13,10 @@
     </div>
 </body>
 <script>
-    const app = new Vue({
+    const app = new KVue({
         el: '#app',
-        data() {
-            return {
-                counter: 0
-            }
+        data: {
+            counter: 0
         }
     })
     setInterval(() => {
