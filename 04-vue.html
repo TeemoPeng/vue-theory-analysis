@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.5/vue.min.js"></script> -->
+    <script src="compile.js"></script>
     <script src='KVue.js'></script>
 </head>
 <body>
     <div id="app">
         <p>{{counter}}</p>
+        <p k-text='test-compile'></p>
     </div>
 </body>
 <script>
@@ -19,8 +21,8 @@
             counter: 0
         }
     })
-    setInterval(() => {
-        app.counter++
-    }, 1000)
+    // setInterval(() => {
+    //     app.counter++
+    // }, 1000)
 </script>
 </html>

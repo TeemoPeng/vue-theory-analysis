@@ -53,6 +53,8 @@ class KVue {
 
         // $data数据代理
         proxy(this, '$data')
+
+        new Compile(this.$options.el, this)
     }
 }
 
