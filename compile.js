@@ -16,7 +16,6 @@ class Compile {
         }
     }
 
-    // 判断节点类型
     compile(el) {
         const childNodes = el.childNodes
 
