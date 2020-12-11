@@ -21,15 +21,13 @@ class Compile {
 
         Array.from(childNodes).forEach(node => {
             if (this.isElement(node)) {
-                // node为元素，遍历其所有属性，获取指令、方法
-                console.log('编译元素---：', node.nodeName)
 
+                // node为元素，遍历其所有属性，获取指令、方法
                 this.compileElement(node)
 
             } else if (this.isInterpolation(node)) {
-                // node 为插值表达式
-                console.log('编辑插值文本---：', node.textContent)
 
+                // node 为插值表达式
                 this.compileInterpolation(node)
             }
 
@@ -64,6 +62,7 @@ class Compile {
                 let directive = attr.name.substring(2)
                 let exp = attr.value
                 
+                // 执行指令
                 this[directive] && this[directive](node, exp)
 
             } else if (this.isMethod(attr.name)) {
