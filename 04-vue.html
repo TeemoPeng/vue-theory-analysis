@@ -10,19 +10,30 @@
 </head>
 <body>
     <div id="app">
-        <p>{{counter}}</p>
-        <p k-text='test-compile'></p>
+        <p id='p1' style='display: inline-block;'>{{counter}}<span style='display: inline-block;'></span></p>
+        <p id='p2' style='display: inline-block;' k-text='test-compile' k-if='isShow' class='text-para' @click='clickHandle'></p>
+        <div k-html='para'></div>
     </div>
 </body>
 <script>
     const app = new KVue({
         el: '#app',
         data: {
-            counter: 0
-        }
+            counter: 800,
+            isShow: true,
+            para:'<span>para</span>'
+        },
+        methods: {
+            clickHandle() {
+                console.log('---- clickHandle ----')
+            }
+        },
     })
     // setInterval(() => {
     //     app.counter++
     // }, 1000)
+
+    console.log('textContent:', document.querySelector('#p1').textContent)
+    console.log('innterText:', document.querySelector('#p1').innerText)
 </script>
 </html>

@@ -32,7 +32,11 @@ class Compile {
                 console.log('编辑插值文本---：', node.textContent)
 
                 this.compileInterpolation(node)
+            }
 
+            // 递归遍历
+            if (node.childNodes && node.childNodes.length > 0) {
+                this.compile(node)
             }
         })
     }
@@ -55,12 +59,50 @@ class Compile {
         const attributes = node.attributes
 
         Array.from(attributes).forEach(attr => {
-            
+            // attr: k-if, k-text, id, class
+            if (this.isDirective(attr.name)) {
+                // 判断是否是指令
+                let directive = attr.name.substring(2)
+                let exp = attr.value
+                
+                this[directive] && this[directive](node, exp)
+
+            } else if (this.isMethod(attr.name)) {
+                // 判断是否为方法
+                let methodType = attr.name.substring(1)
+                let methodName = attr.value
+
+                // 为node绑定事件
+                node.addEventListener(methodType, this.$vm.$options.methods[methodName], false)
+            }
         })
     }
 
     // 解析插值文本
     compileInterpolation(node) {
+        // {{ xxx }}
+        node.textContent = this.$vm.$data[RegExp.$1]
+        
+    }
+ 
+    // 判断是否为指令
+    isDirective(attrName) {
+        // 指令为 k- 开头
+        return attrName.indexOf('k-') === 0
+    }
 
+    // 判断是否为方法
+    isMethod(attrName) {
+        return attrName.indexOf('@') === 0
+    }
+
+    // text 指令
+    text(node, exp) {
+        node.textContent = exp
+    }
+
+    // html 指令
+    html(node, exp) {
+        node.innerHTML = exp
     }
 }
