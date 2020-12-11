@@ -80,8 +80,7 @@ class Compile {
     // 解析插值文本
     compileInterpolation(node) {
         // {{ xxx }}
-        node.textContent = this.$vm.$data[RegExp.$1]
-        
+        node.textContent = this.$vm.$data[RegExp.$1] // 初始值
     }
  
     // 判断是否为指令
