@@ -10,6 +10,9 @@ function defineReactive(obj, key, val) {
                 console.log('set:', newVal)
                 observe(newVal)
                 val = newVal
+
+                // 执行更新函数
+                watchers.forEach(w => w.update())
             }
         }
     })
@@ -79,6 +82,22 @@ class Observer {
     }
 
     // 数组数据的响应化
+}
+
+// 观察者, 值发生变化时，执行更新函数
+let watchers = []
+class Wacther {
+    constructor(vm, key, updateFn) {
+        this.vm = vm
+        this.key = key
+        this.updateFn = updateFn
+
+        watchers.push(this)
+    }
+
+    update() {
+        this.updateFn.call(this.vm, this.vm[this.key])
+    }
 }
 
 

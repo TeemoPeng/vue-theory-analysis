@@ -79,8 +79,25 @@ class Compile {
     // 解析插值文本
     compileInterpolation(node) {
         // {{ xxx }}
-        node.textContent = this.$vm.$data[RegExp.$1] // 初始值
+        // node.textContent = this.$vm.$data[RegExp.$1] // 初始值
+
+        this.update(node, RegExp.$1, 'text')
     }
+
+    update(node, exp, directive) {
+        // 初始化
+        // 指令对应的更新函数 xxUpdater
+        const fn = this[directive + 'Updater']
+
+        fn && fn(node, this.$vm[exp])
+
+        // 更新处理,封装一个更新函数， 可以更新对应的dom元素
+        new Wacther(this.$vm, exp, function(val) {
+            fn && fn(node, val)
+        })
+    }   
+
+
  
     // 判断是否为指令
     isDirective(attrName) {
@@ -95,11 +112,22 @@ class Compile {
 
     // text 指令
     text(node, exp) {
-        node.textContent = exp
+        // node.textContent = exp
+        this.update(node, exp, 'text')
     }
+
+    textUpdater(node, val) {
+        node.textContent = val
+    }
+
 
     // html 指令
     html(node, exp) {
-        node.innerHTML = exp
+        // node.innerHTML = exp
+        this.update(node, exp, 'html')
+    }
+
+    htmlUpdater(node, val) {
+        node.innerHTML = val 
     }
 }
