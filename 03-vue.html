@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.5/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.0.0-rc.1/echarts.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.5/vue.js"></script>
 </head>
 <body>
     <div id="app">
         <p>{{counter}}</p>
+        <div id='echartsMain' style="width: 500px;height:500px;"></div>
     </div>
 </body>
 <script>
@@ -18,10 +20,37 @@
             return {
                 counter: 0
             }
-        }
+        },
+        mounted() {
+            console.log('mounted')
+            var myChart = echarts.init(document.getElementById('echartsMain'));
+ 
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '第一个 ECharts 实例'
+                },
+                tooltip: {},
+                legend: {
+                    data:['销量']
+                },
+                xAxis: {
+                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                }]
+            };
+    
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        },
     })
-    setInterval(() => {
-        app.counter++
-    }, 1000)
+    // setInterval(() => {
+    //     app.counter++
+    // }, 1000)
 </script>
 </html>
