@@ -81,7 +81,13 @@ class Observer {
         // 判断其类型
         if (typeof value === 'object') {
             this.walk(value)
+        } 
+        
+        if (Array.isArray(value)) {
+            // 数组类型处理，重写数组的方法：push, shift, unshift, splice, reverse, pop
+            this.arrayMethodWriten()
         }
+
     }
 
     // 对象数据的响应化
@@ -93,6 +99,9 @@ class Observer {
     }
 
     // 数组数据的响应化
+    arrayMethodWriten() {
+        
+    }
 }
 
 // 观察者, 值发生变化时，执行更新函数

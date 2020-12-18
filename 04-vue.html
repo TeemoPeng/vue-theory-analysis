@@ -14,7 +14,7 @@
         <p id='p1' style='display: inline-block;'>{{counter}}<span style='display: inline-block;'></span></p>
         <p id='p2' style='display: inline-block;' k-text='test-compile' k-if='isShow' class='text-para' @click='clickHandle'></p>
         <div k-html='para'></div>
-
+        {{arr}}
         
     </div>
 </body>
@@ -24,7 +24,8 @@
         data: {
             counter: 800,
             isShow: true,
-            para:'<span>para</span>'
+            para:'<span>para</span>',
+            arr: []
         },
         methods: {
             clickHandle() {
@@ -36,6 +37,10 @@
     // setInterval(() => {
     //     app.counter++
     // }, 1000)
+
+    setTimeout(() => {
+        app.arr.push(222)
+    }, 1000);
 
     console.log('textContent:', document.querySelector('#p1').textContent)
     console.log('innterText:', document.querySelector('#p1').innerText)
